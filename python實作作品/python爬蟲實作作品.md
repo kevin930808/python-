@@ -156,12 +156,15 @@ except:
 但此程式還是有一些BUG，當個股是在漲停板或是跌停板時，其中的價錢的tag如下:<br>
 ```html
 <div class="D(f) Ai(fe) Mb(4px)">
-  <span class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-down)">597</span>
-  <span class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-down)">
-    <span class="Mend(4px) Bds(s)" style="border-color:transparent transparent #ff333a transparent;border-width:0 6.5px 9px 6.5px"></span>
-    "8"
+  <span class="Fz(32px) Fw(b) Lh(1) Mend(16px) C(#fff) Px(6px) Py(2px) Bdrs(4px) Bgc($c-trend-up)">162.5</span>
+  <span class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-up)"><span class="Mend(4px) Bds(s)" style="border-color:transparent transparent #ff333a transparent;border-width:0 6.5px 9px 6.5px"></span>14.5
   </span>
-  <span class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-down)">(1.36%)</span>
-</div>
-#其中的trend-up會因跌而變成trend-down
+  <span class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-up)">(9.80%)</span></div>
 ```
+可以觀察到其中價錢的部分:<br>
+```html
+<span class="Fz(32px) Fw(b) Lh(1) Mend(16px) C(#fff) Px(6px) Py(2px) Bdrs(4px) Bgc($c-trend-up)">162.5</span>
+#多了 C(#fff) 
+#我認為應該是在漲停或跌停時，價錢的顯示方式不同
+```
+所以V1程式在使用者輸入的個股為長廷或跌停時是顯示不出來的(會出現錯誤)<br>
