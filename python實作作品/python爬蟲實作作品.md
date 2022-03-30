@@ -213,4 +213,4 @@ infos = soup.find('div',{'class':"D(f) Ai(fe) Mb(4px)"}).find_all('span')
 ```
 V2輸出如下圖:<br>
 ![](https://github.com/kevin930808/python-/blob/main/%E5%9C%96%E7%89%87%E6%AA%94/V2%E8%BC%B8%E5%87%BA.png)<br>
-這次的v2版本不論長廷或跌停，都可以輸出給使用者個股的資訊。<br>
+這次的v2版本不論漲停或跌停，都可以輸出給使用需要的者個股資訊。<br>
