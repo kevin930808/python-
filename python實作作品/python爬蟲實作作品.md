@@ -24,9 +24,9 @@
 -----
   我個人在學習python之初，有問過家教老師及網路爬文有那些較好的python編譯器，<br>
 發現蠻有豐富經驗或一些相關科系的大學生，都推薦使用anaconda的jupyterLab，<br>
-在簡單的網路爬文過後，也在自己的電腦安裝了此工具，我認文Anaconda的好處是本身就自帶了很多套件<br>
+在簡單的網路爬文過後，也在自己的電腦安裝了此工具，我認為Anaconda的好處是本身就自帶了很多套件<br>
 例如numpy、pandas、matplotlib等常用的套件，都不須另外用pip install進行安裝，<br>
-另外一個優點是很好debug，可以分段編輯程式碼，可以分成多個部分，以增加效率。<br>
+另外一個優點是jupythr lab很好debug，可以分段編輯程式碼，可以分成多個部分，以增加效率。<br>
 
   利用網路上的資源，我查詢了很多python爬蟲的教學，但幾乎都是大同小異，有些甚至是搬運網站<br>
 在不同的網站，但內容卻都相同，最後選擇了也是github上其他人分享的教學資料，也到了Beautiful Soup的官方文檔<br>
@@ -171,10 +171,11 @@ except:
 ```
 所以V1程式在使用者輸入的個股為漲廷或跌停時是顯示不出來的(會出現錯誤)<br>
 若要修正此錯誤，就需要再另外新增一個try except去除錯，但我覺得有點太複雜了，<br>
-所以我用了find來取代select。<br>
+所以在價格的部分我用了find來取代select。<br>
 ```python
 import requests
 from bs4 import BeautifulSoup
+#以上為導入requests 及 BeautifulSoup的套件
 url = input()
 r = requests.get(url)
 soup = BeautifulSoup(r.text, 'lxml')
@@ -182,27 +183,26 @@ soup = BeautifulSoup(r.text, 'lxml')
 infos = soup.find('div',{'class':"D(f) Ai(fe) Mb(4px)"}).find_all('span')
 #註1
 price= infos[0].text
+#這邊的做法是不管是漲跌或是漲停板都可以抓到數值
+name=soup.select('h1[class="C($c-link-text) Fw(b) Fz(24px) Mend(8px)"]')[0].text
+num=soup.select('span[class="C($c-icon) Fz(24px) Mend(20px)"]')[0].text
+time=soup.select('span[class="C(#6e7780) Fz(12px) Fw(b)"]')[0].text
+print('為',time)
+print('該標的為',name,num)
+print('價錢為',price)
 try:
-    name = soup.select('h1[class="C($c-link-text) Fw(b) Fz(24px) Mend(8px)"]')[0].text
-    num = soup.select('span[class="C($c-icon) Fz(24px) Mend(20px)"]')[0].text
+    
     down = soup.select('span[class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-down)"]')[0].text
     percents= soup.select('span[class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-down)"]')[0].text
-    print('該標的為')
-    print(name,num)
-    print('價錢為')
-    print(price,'跌',down,percents)
-    #指定個股名稱、股票代碼、跌幅、漲跌的百分比，並print出來
+    #指定跌幅、漲跌的百分比，並print出來
+    print('跌',down,'元',percents)
+    
 except:
-    name = soup.select('h1[class="C($c-link-text) Fw(b) Fz(24px) Mend(8px)"]')[0].text
-    num = soup.select('span[class="C($c-icon) Fz(24px) Mend(20px)"]')[0].text
     up = soup.select('span[class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-up)"]')[0].text
     percents= soup.select('span[class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-up)"]')[0].text
-    print('該標的為')
-    print(name,num)
-    print('價錢為')
-    print(price,'漲',up,percents)
-    #指定個股名稱、股票代碼、漲幅、漲跌的百分比，並print出來
- #####東山高中三年信班朱晨愷v2
+    print('漲',up,'元',percents)
+    #指定跌幅、漲跌的百分比，並print出來
+#####東山高中三年信班朱晨愷v2#####
 ```
 註1:
 ```python
