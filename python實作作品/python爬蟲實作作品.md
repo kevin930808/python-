@@ -7,7 +7,7 @@
 
 <br>
 若要直接到研究成果
-[點我](https://github.com/kevin930808/python-/blob/main/python%E5%AF%A6%E4%BD%9C%E4%BD%9C%E5%93%81/python%E7%88%AC%E8%9F%B2%E5%AF%A6%E4%BD%9C%E4%BD%9C%E5%93%81.md#%E6%96%BC%E6%98%AF%E7%AC%AC%E4%B8%80%E7%89%88%E8%87%AA%E8%A3%BD%E7%88%AC%E8%9F%B2%E7%A8%8B%E5%BC%8F%E5%B0%B1%E6%88%90%E5%8A%9F%E8%A3%BD%E4%BD%9C%E5%87%BA%E4%BE%86%E4%BA%86%E7%A0%94%E7%A9%B6%E6%88%90%E6%9E%9C)
+[點我](https://reurl.cc/jkA2Dm)<br>
 研究動機:
 ---
   結合數學科的數據分析及股票分析之探討應用，想自己藉由網路自學和老師的指導，<br>
