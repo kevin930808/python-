@@ -31,3 +31,48 @@
   利用網路上的資源，我查詢了很多python爬蟲的教學，但幾乎都是大同小異，有些甚至是搬運網站<br>
 在不同的網站，但內容卻都相同，最後選擇了也是github上其他人分享的教學資料，也到了Beautiful Soup的官方文檔<br>
 查閱相關的語法。
+
+ 這次的實作作品所爬蟲的網站是yahoo股市，簡單的利用右鍵檢查抓取股票的名字、代碼、價錢、漲幅，並顯示出來。
+
+研究過程:
+-----
+在學習soup.select和soup.find時，我不太懂要怎麼讓程式知道我要抓的tag是什麼。<br>
+第一個問題是在使用select時，會出錯錯誤。<br>
+原本的使用方法如下:<br>
+```html
+s1 = """
+<body>
+
+<h1>哈囉！HTML！</h1>
+
+<div class="class1">
+    <p>這是第一個p標籤內容！</p>
+    <p>這是第二個p標籤內容！</p>
+</div>
+
+<div class="class2">
+    <p>這是第三個p標籤內容！</p>
+    <p>這是第四個p標籤內容！</p>
+</div>
+</body>
+```
+我需要抓取class="class1"的tag
+所以是
+```python
+soup1 = BeautifulSoup(s1)
+soup1.select('div.class1 p')
+```
+但如果class="我是class" 的"我是class"當中有"("時就會出現錯誤。<br>
+我自己摸索出來的解決方法是 改成如下<br>
+```python
+soup1 = BeautifulSoup(s1)
+soup1.select('div[class="class1"] p')
+```
+這樣的方法不管是class裡面是什麼都可以使用<br>
+
+第二個問題為都是抓取同一個資料的tag但卻有不同的時候<br>
+從yahoo股市的網頁碼來看<br>
+(此為擷取一小段)<br>
+```html
+
+```
