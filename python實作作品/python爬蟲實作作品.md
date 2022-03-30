@@ -212,5 +212,5 @@ infos = soup.find('div',{'class':"D(f) Ai(fe) Mb(4px)"}).find_all('span')
 #指定infos為div class="D(f) Ai(fe) Mb(4px)"裡所有tag為<span>的項目
 ```
 V2輸出如下圖:<br>
-![](https://github.com/kevin930808/python-/blob/main/%E5%9C%96%E7%89%87%E6%AA%94/V2%E8%BC%B8%E5%87%BA.png)<br>
+![](https://github.com/kevin930808/python-/blob/main/%E5%9C%96%E7%89%87%E6%AA%94/V2%E8%BC%B8%E5%87%BANEW.png)<br>
 這次的v2版本不論漲停或跌停，都可以輸出給使用需要的者個股資訊。<br>
