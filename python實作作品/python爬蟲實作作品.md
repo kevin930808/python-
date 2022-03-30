@@ -5,9 +5,9 @@
 ---
 
 
-<br>
-若要直接到研究成果
-[點我](https://reurl.cc/jkA2Dm)<br>
+若要直接到研究成果[點我](https://reurl.cc/jkA2Dm)<br>
+
+
 
 研究動機:
 ---
@@ -216,3 +216,9 @@ infos = soup.find('div',{'class':"D(f) Ai(fe) Mb(4px)"}).find_all('span')
 V2輸出如下圖:<br>
 ![](https://github.com/kevin930808/python-/blob/main/%E5%9C%96%E7%89%87%E6%AA%94/V2%E8%BC%B8%E5%87%BANEW.png)<br>
 這次的v2版本不論漲停或跌停，都可以輸出給使用需要的者個股資訊。<br>
+
+參考資料:
+---
+[Beautiful Soup官方文檔](https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/)<br>
+[github上的教學](https://github.com/victorgau/python_crawler)<br>
+
