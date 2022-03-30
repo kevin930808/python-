@@ -119,7 +119,7 @@ except:
 於是第一版自製爬蟲程式就成功製作出來了!!!!<br>
 研究成果:
 ------
-第一版程式碼(簡稱:V1)如下:<br>
+第一版爬蟲程式(簡稱V1)<br>
 ```python
 import requests
 from bs4 import BeautifulSoup
@@ -151,7 +151,7 @@ except:
     print('價錢為')
     print(price,'漲',up,percents)
     #指定個股名稱、股票代碼、價格、漲幅、漲跌的百分比，並print出來
-#####東山高中三年信班朱晨愷v1
+#####東山高中三年信班朱晨愷v1#####
 ```
 輸出範例如下:<br>
 ![](https://github.com/kevin930808/python-/blob/main/%E5%9C%96%E7%89%87%E6%AA%94/v1%E8%BC%B8%E5%87%BA%E7%AF%84%E4%BE%8B.png)<br>
@@ -172,6 +172,7 @@ except:
 所以V1程式在使用者輸入的個股為漲廷或跌停時是顯示不出來的(會出現錯誤)<br>
 若要修正此錯誤，就需要再另外新增一個try except去除錯，但我覺得有點太複雜了，<br>
 所以在價格的部分我用了find來取代select。<br>
+第二版爬蟲程式(簡稱V2)<br>
 ```python
 import requests
 from bs4 import BeautifulSoup
@@ -210,3 +211,6 @@ except:
 infos = soup.find('div',{'class':"D(f) Ai(fe) Mb(4px)"}).find_all('span')
 #指定infos為div class="D(f) Ai(fe) Mb(4px)"裡所有tag為<span>的項目
 ```
+V2輸出如下圖:<br>
+![](https://github.com/kevin930808/python-/blob/main/%E5%9C%96%E7%89%87%E6%AA%94/V2%E8%BC%B8%E5%87%BA.png)<br>
+這次的v2版本不論長廷或跌停，都可以輸出給使用者個股的資訊。<br>
