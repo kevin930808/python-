@@ -189,7 +189,8 @@ num=soup.select('span[class="C($c-icon) Fz(24px) Mend(20px)"]')[0].text
 time=soup.select('span[class="C(#6e7780) Fz(12px) Fw(b)"]')[0].text
 print('為',time)
 print('該標的為',name,num)
-print('價錢為',price)
+print('目前價位為',price)
+ #指定時間、個股名稱、個股代碼、目前價位，並print出來
 try:
     
     down = soup.select('span[class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-down)"]')[0].text
