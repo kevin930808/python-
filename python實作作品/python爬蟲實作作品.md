@@ -74,5 +74,94 @@ soup1.select('div[class="class1"] p')
 從yahoo股市的網頁碼來看<br>
 (此為擷取一小段)<br>
 ```html
+<div class="D(f) Ai(fe) Mb(4px)">
+  <span class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-up)">597</span>
+  <span class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-up)">
+    <span class="Mend(4px) Bds(s)" style="border-color:transparent transparent #ff333a transparent;border-width:0 6.5px 9px 6.5px"></span>
+    "8"
+  </span>
+  <span class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-up)">(1.36%)</span>
+</div>
+```
+我需要抓取的部分為價錢也就是<br>
+```html
+<span class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-up)">597</span>
+```
+我使用select<br>
+```python
+price = soup.select('span[class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-down)"]')[0].text
+#text為擷取純文字 tag裡的內容
+```
+但如果股票不是漲而是跌會變成
+```html
+<div class="D(f) Ai(fe) Mb(4px)">
+  <span class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-down)">597</span>
+  <span class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-down)">
+    <span class="Mend(4px) Bds(s)" style="border-color:transparent transparent #ff333a transparent;border-width:0 6.5px 9px 6.5px"></span>
+    "8"
+  </span>
+  <span class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-down)">(1.36%)</span>
+</div>
+#其中的trend-up會因跌而變成trend-down
+```
+以至於不能當使用者輸入的標的為跌時，程式無法輸出而是顯示錯誤<br>
+我的解決辦法是利用try except去解決報錯的問題<br>
+方法如下(簡化):<br>
+```python
+try:
+    price = soup.select('span[class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-up)"]')[0].text
+    print(price)
+except:
+    price = soup.select('span[class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-down)"]')[0].text
+    print(price) 
+```
 
+於是第一版自製爬蟲程式就成功製作出來了!!!!<br>
+研究成果:
+------
+第一版程式碼(簡稱:V1)如下:<br>
+```python
+import requests
+from bs4 import BeautifulSoup
+#以上為導入requests 及 BeautifulSoup的套件
+url = input()
+r = requests.get(url)
+soup = BeautifulSoup(r.text, 'lxml')
+#使用者輸入yahoo股市個股的網址，並利用"lxml"解譯利用requests.get得到的html以利於BeautifulSoup進行後續的select
+try:
+    name = soup.select('h1[class="C($c-link-text) Fw(b) Fz(24px) Mend(8px)"]')[0].text
+    num = soup.select('span[class="C($c-icon) Fz(24px) Mend(20px)"]')[0].text
+    price = soup.select('span[class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-down)"]')[0].text
+    down = soup.select('span[class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-down)"]')[0].text
+    percents= soup.select('span[class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-down)"]')[0].text
+    #指定個股名稱、股票代碼、價格、跌幅、漲跌的百分比，並print出來
+    print('該標的為')
+    print(name,num)
+    print('價錢為')
+    print(price,'跌',down,percents)
+    
+except:
+    name = soup.select('h1[class="C($c-link-text) Fw(b) Fz(24px) Mend(8px)"]')[0].text
+    num = soup.select('span[class="C($c-icon) Fz(24px) Mend(20px)"]')[0].text
+    price = soup.select('span[class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-up)"]')[0].text
+    up = soup.select('span[class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-up)"]')[0].text
+    percents= soup.select('span[class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-up)"]')[0].text
+    print('該標的為')
+    print(name,num)
+    print('價錢為')
+    print(price,'漲',up,percents)
+    #指定個股名稱、股票代碼、價格、漲幅、漲跌的百分比，並print出來
+#####東山高中三年信班朱晨愷v1
+```
+但此程式還是有一些BUG，當個股是在漲停板或是跌停板時，其中的價錢的tag如下:<br>
+```html
+<div class="D(f) Ai(fe) Mb(4px)">
+  <span class="Fz(32px) Fw(b) Lh(1) Mend(16px) D(f) Ai(c) C($c-trend-down)">597</span>
+  <span class="Fz(20px) Fw(b) Lh(1.2) Mend(4px) D(f) Ai(c) C($c-trend-down)">
+    <span class="Mend(4px) Bds(s)" style="border-color:transparent transparent #ff333a transparent;border-width:0 6.5px 9px 6.5px"></span>
+    "8"
+  </span>
+  <span class="Jc(fe) Fz(20px) Lh(1.2) Fw(b) D(f) Ai(c) C($c-trend-down)">(1.36%)</span>
+</div>
+#其中的trend-up會因跌而變成trend-down
 ```
