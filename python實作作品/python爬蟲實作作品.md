@@ -17,7 +17,7 @@
 
 研究方法:
 ----
-  在網路上即github搜尋相關的教材，並到Beautiful Soup 和 Requests的官網學習(本報告中使用的兩個python套件)，<br>
+  在網路使用github搜尋相關的教材，並到Beautiful Soup 和 Requests的官網學習(本報告中使用的兩個python套件)，<br>
 雖然自己沒有學過html相關的語法，但在查閱範例(官方範例及其他人的作品)的時候也大概的知道要<br>
 如何使用soup.select和soup.find的語法使用，於是自己不斷的修正錯誤，在過程之中也出現了很多的bug，<br>
 但也都逐一修正並且優化程式碼。<br>
